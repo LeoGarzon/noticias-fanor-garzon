@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native';
-import { NativeBaseProvider, FlatList, Divider, Image, Spinner } from 'native-base';
+import { NativeBaseProvider, FlatList, Divider, Image, Spinner, Button } from 'native-base';
 import { services } from '../services/services';
 import moment from 'moment'
-export default function Health() {
+export default function Health({ navigation }) {
     const [newsData, setNewsData] = useState([])
     useEffect(() => {
         services('Health')
@@ -36,6 +36,13 @@ export default function Health() {
                         <Text style={styles.newsDescription}>
                             {item.description}
                         </Text>
+                        <Button
+                            onPress={() => {
+                                navigation.navigate('WebView', { url: item.url });
+                            }}
+                        >
+                            see full news
+                        </Button>
                     </View>
                     <Divider my={2} bg="#e0e0e0" />
                 </View>
