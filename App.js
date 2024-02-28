@@ -1,4 +1,6 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import store from './store';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -15,12 +17,14 @@ const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="News" component={TabNavigator} />
-        <Stack.Screen name="WebView" component={WebViewScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="News" component={TabNavigator} />
+          <Stack.Screen name="WebView" component={WebViewScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 

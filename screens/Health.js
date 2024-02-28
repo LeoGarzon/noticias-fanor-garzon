@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native';
 import { NativeBaseProvider, FlatList, Divider, Image, Spinner, Button } from 'native-base';
+import { useSelector, useDispatch } from 'react-redux';
+import { setNewsData } from '../actions/NewsActions';
 import { services } from '../services/services';
 import moment from 'moment'
+
 export default function Health({ navigation }) {
-    const [newsData, setNewsData] = useState([])
-    useEffect(() => {
+    const newsData = useSelector(state => state.news.newsData);
+    const dispatch = useDispatch();
+
+   useEffect(() => {
         services('Health')
             .then(data => {
-                setNewsData(data)
+                dispatch(setNewsData(data));
             })
             .catch(error => {
-                alert(error)
-            })
-    }, [])
+                alert(error);
+            });
+    }, [dispatch]);
+    
     return (
         <NativeBaseProvider>
     {newsData.length > 1 ? (
